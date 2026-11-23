@@ -4,82 +4,88 @@
     ViewData["Title"] = "Delete Skill";
 }
 
-<div class="container mw-container py-4">
+<section class="mw-section">
+    <div class="container mw-container">
 
-    <div class="mw-card mw-form">
+        <div class="mw-card mw-form">
 
-        <div class="mb-4">
-            <span class="mw-eyebrow">SKILL MANAGEMENT</span>
+            <div class="mb-4">
+                <span class="mw-eyebrow">SKILL MANAGEMENT</span>
 
-            <h1 class="mb-2">
-                Delete Skill
-            </h1>
+                <h1 class="mb-2 fw-bold" style="color: var(--forsa-text);">
+                    Delete Skill
+                </h1>
 
-            <p class="mw-muted mb-0">
-                Review the skill before deleting it.
-            </p>
-        </div>
-
-        <div class="alert alert-danger">
-
-            <strong>
-                Are you sure you want to delete this skill?
-            </strong>
-
-            <div class="mt-2">
-                This action cannot be undone.
+                <p class="mw-muted mb-0">
+                    Review the skill before deleting it.
+                </p>
             </div>
 
-        </div>
+            <div class="mw-alert mw-alert-error mb-4"
+                 style="width: 100%; margin-top: 0;">
 
-        <div class="mw-card mw-card-pad mb-4">
+                <div>
+                    <strong>
+                        Are you sure you want to delete this skill?
+                    </strong>
 
-            <div class="mw-info-item">
-
-                <div class="mw-info-label">
-                    Skill Name
-                </div>
-
-                <div class="mw-info-value">
-                    @Model.Name
+                    <div class="mt-1">
+                        This action cannot be undone.
+                    </div>
                 </div>
 
             </div>
 
-        </div>
+            <div class="mw-card mw-card-pad mb-4">
 
-        <form asp-controller="Skill"
-              asp-action="Delete"
-              asp-route-id="@Model.Id"
-              method="post">
+                <div class="mw-info-item">
 
-            @Html.AntiForgeryToken()
+                    <div class="mw-info-label">
+                        Skill Name
+                    </div>
 
-            <div class="mw-actions-row">
+                    <div class="mw-info-value">
+                        @Model.Name
+                    </div>
 
-                <button type="submit"
-                        class="btn mw-btn btn-danger">
-
-                    <span class="material-symbols-outlined">
-                        delete
-                    </span>
-
-                    Yes, Delete
-
-                </button>
-
-                <a asp-controller="Skill"
-                   asp-action="Index"
-                   class="btn mw-btn mw-btn-outline">
-
-                    Cancel
-
-                </a>
+                </div>
 
             </div>
 
-        </form>
+            <form asp-controller="Skill"
+                  asp-action="Delete"
+                  asp-route-id="@Model.Id"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div class="mw-actions-row">
+
+                    <button type="submit"
+                            class="mw-btn mw-btn-primary"
+                            style="background: var(--forsa-burgundy-dark);">
+
+                        <span class="material-symbols-outlined" style="font-size: 18px;">
+                            delete
+                        </span>
+
+                        Yes, Delete
+
+                    </button>
+
+                    <a asp-controller="Skill"
+                       asp-action="Index"
+                       class="mw-btn mw-btn-outline">
+
+                        Cancel
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
-
-</div>
+</section>

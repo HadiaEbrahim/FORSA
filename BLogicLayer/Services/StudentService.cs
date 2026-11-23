@@ -413,41 +413,36 @@ namespace BLogicLayer.Services
             if (student == null)
                 return false;
 
-            // Personal Information
+            // Keep existing personal & location data intact unless provided
+            if (!string.IsNullOrWhiteSpace(model.FName))
+                student.FName = model.FName.Trim();
 
-            student.FName =
-                model.FName;
+            if (!string.IsNullOrWhiteSpace(model.LName))
+                student.LName = model.LName.Trim();
 
-            student.LName =
-                model.LName;
+            if (!string.IsNullOrWhiteSpace(model.Email))
+                student.Email = model.Email.Trim();
 
-            student.Email =
-                model.Email;
+            // Update Education fields when provided, preserving existing values if left blank
+            if (!string.IsNullOrWhiteSpace(model.University))
+                student.University = model.University.Trim();
 
-            // Education
+            if (!string.IsNullOrWhiteSpace(model.Major))
+                student.Major = model.Major.Trim();
 
-            student.University =
-                model.University;
+            if (model.AcademicYear.HasValue)
+                student.AcademicYear = model.AcademicYear.Value;
 
-            student.Major =
-                model.Major;
+            if (!string.IsNullOrWhiteSpace(model.Education))
+                student.Education = model.Education.Trim();
 
-            student.AcademicYear =
-                model.AcademicYear;
+            if (!string.IsNullOrWhiteSpace(model.City))
+                student.City = model.City.Trim();
 
-            student.Education =
-                model.Education;
+            if (!string.IsNullOrWhiteSpace(model.Government))
+                student.Government = model.Government.Trim();
 
-            // Location
-
-            student.City =
-                model.City;
-
-            student.Government =
-                model.Government;
-
-            // Store Internal CV
-
+            // Store Internal CV sections without wiping out existing profile fields
             student.CV =
                 "ABOUT_ME_START\n" +
                 (model.AboutMe ?? "") +

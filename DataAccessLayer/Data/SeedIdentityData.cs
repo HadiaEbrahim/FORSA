@@ -36,7 +36,7 @@ namespace DataAccessLayer.Data
             // ========================================
 
             string adminEmail =
-                "admin@mawjoood.com";
+                "admin@Forsa.com";
 
             string adminPassword =
                 "Admin@12345";

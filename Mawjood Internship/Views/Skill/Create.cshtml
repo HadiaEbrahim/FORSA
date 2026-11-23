@@ -1,102 +1,68 @@
-﻿@* @using BLogicLayer.ViewModels
-@model SkillViewModel
-
-@{
-    ViewData["Title"] = "Add Skill";
-}
-
-<div class="row justify-content-center">
-    <div class="col-md-5">
-
-        <div class="card shadow p-4">
-
-            <h2>Add Skill</h2>
-
-            <form asp-action="Create" method="post">
-
-                @Html.AntiForgeryToken()
-
-                <div asp-validation-summary="All"
-                     class="text-danger">
-                </div>
-
-                <div class="mb-3">
-
-                    <label asp-for="Name"
-                           class="form-label">
-                    </label>
-
-                    <input asp-for="Name"
-                           class="form-control" />
-
-                    <span asp-validation-for="Name"
-                          class="text-danger">
-                    </span>
-
-                </div>
-
-                <button type="submit"
-                        class="btn btn-success">
-                    Save
-                </button>
-
-                <a asp-action="Index"
-                   class="btn btn-secondary">
-                    Cancel
-                </a>
-
-            </form>
-
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-} *@
-
-
-
-
-@model BLogicLayer.ViewModels.SkillViewModel
+﻿@model BLogicLayer.ViewModels.SkillViewModel
 
 @{
     ViewData["Title"] = "Create Skill";
 }
 
-<div class="container mt-4">
+<section class="mw-section">
+    <div class="mw-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
 
-    <h2>Create Skill</h2>
+                <div class="mw-card mw-form">
 
-    <form asp-action="Create" method="post">
+                    <span class="mw-eyebrow">SKILLS MANAGEMENT</span>
+                    <h2 class="mb-4 fw-bold" style="color: var(--forsa-text);">
+                        Create Skill
+                    </h2>
 
-        @Html.AntiForgeryToken()
+                    <form asp-action="Create" method="post">
 
-        <div class="mb-3">
+                        @Html.AntiForgeryToken()
 
-            <label asp-for="Name"
-                   class="form-label">
-            </label>
+                        <div asp-validation-summary="ModelOnly"
+                             class="mw-alert mw-alert-error mb-3"
+                             style="width: 100%; margin-top: 0;">
+                        </div>
 
-            <input asp-for="Name"
-                   class="form-control" />
+                        <div class="mb-4">
 
-            <span asp-validation-for="Name"
-                  class="text-danger">
-            </span>
+                            <label asp-for="Name"
+                                   class="form-label fw-semibold">
+                            </label>
 
+                            <input asp-for="Name"
+                                   class="form-control mw-input"
+                                   placeholder="e.g. ASP.NET Core, C#, SQL" />
+
+                            <span asp-validation-for="Name"
+                                  class="text-danger small">
+                            </span>
+
+                        </div>
+
+                        <div class="d-flex gap-2 flex-wrap pt-2">
+                            <button type="submit"
+                                    class="mw-btn mw-btn-primary">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+                                Create
+                            </button>
+
+                            <a asp-action="Index"
+                               class="mw-btn mw-btn-outline">
+                                Back
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
         </div>
+    </div>
+</section>
 
-        <button type="submit"
-                class="btn btn-success">
-            Create
-        </button>
-
-        <a asp-action="Index"
-           class="btn btn-secondary">
-            Back
-        </a>
-
-    </form>
-
-</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

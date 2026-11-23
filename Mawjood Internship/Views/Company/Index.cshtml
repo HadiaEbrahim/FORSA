@@ -48,7 +48,17 @@
         @if (Model == null || !Model.Any())
         {
             <div class="mw-empty">
-                No companies found.
+                <span class="material-symbols-outlined" style="font-size: 42px;">
+                    business_center
+                </span>
+
+                <h3 class="mt-3">
+                    No companies found
+                </h3>
+
+                <p>
+                    There are currently no companies available to display.
+                </p>
             </div>
         }
         else
@@ -74,7 +84,7 @@
 
                             <!-- Company Name -->
                             <td>
-                                <strong>
+                                <strong style="color: var(--forsa-text);">
                                     @company.Name
                                 </strong>
                             </td>
@@ -88,7 +98,16 @@
 
                             <!-- City -->
                             <td>
-                                @(company.City ?? "—")
+                                @if (!string.IsNullOrWhiteSpace(company.City))
+                                {
+                                    <span class="mw-chip-green">
+                                        @company.City
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span>—</span>
+                                }
                             </td>
 
 

@@ -70,10 +70,8 @@
 
             @foreach (var notification in Model)
             {
-                <div class="mw-card mw-card-pad
-                            @(notification.IsRead
-                                ? ""
-                                : "border-primary")">
+                <div class="mw-card mw-card-pad"
+                     style="@(notification.IsRead ? "" : "border-color: var(--forsa-burgundy); background: var(--forsa-surface-soft);")">
 
                     <div class="d-flex gap-3">
 
@@ -90,9 +88,16 @@
 
                         <div class="flex-grow-1">
 
-                            <p class="mb-1">
-                                @notification.Message
-                            </p>
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-1">
+                                <p class="mb-0 fw-semibold" style="color: var(--forsa-text);">
+                                    @notification.Message
+                                </p>
+
+                                @if (!notification.IsRead)
+                                {
+                                    <span class="mw-chip-green">Unread</span>
+                                }
+                            </div>
 
                             <div class="mw-muted small">
 

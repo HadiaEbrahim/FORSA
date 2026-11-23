@@ -11,7 +11,7 @@
           content="width=device-width, initial-scale=1.0" />
 
     <title>
-        @ViewData["Title"] - Mawjood Internship
+        @ViewData["Title"] - Forsa
     </title>
 
     <link rel="preconnect"
@@ -34,307 +34,295 @@
           href="~/css/site.css"
           asp-append-version="true" />
 
+    <style>
+            :root {
+                --forsa-burgundy: #6d1b2e;
+                --forsa-burgundy-dark: #4f1120;
+                --forsa-burgundy-light: #8d2940;
+                --forsa-burgundy-soft: #fdf2f4;
+                --forsa-burgundy-border: #e5c2c9;
+                --forsa-text: #23181b;
+                --forsa-muted: #6b5b60;
+                --forsa-surface: #ffffff;
+                --forsa-bg: #faf7f8;
+            }
+
+            body {
+                font-family: 'Inter', sans-serif;
+                background-color: var(--forsa-bg);
+                color: var(--forsa-text);
+                margin: 0;
+            }
+
+            .mw-navbar {
+                background-color: var(--forsa-surface);
+                border-bottom: 1px solid var(--forsa-burgundy-border);
+                position: sticky;
+                top: 0;
+                z-index: 1020;
+            }
+
+            .mw-nav-inner {
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 0.75rem 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .mw-brand {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.6rem;
+                text-decoration: none;
+                color: var(--forsa-burgundy-dark);
+                font-weight: 700;
+                font-size: 1.1rem;
+            }
+
+                .mw-brand:hover {
+                    color: var(--forsa-burgundy);
+                }
+
+            .mw-brand-mark {
+                width: 34px;
+                height: 34px;
+                border-radius: 9px;
+                background: linear-gradient(135deg, var(--forsa-burgundy), var(--forsa-burgundy-dark));
+                color: #ffffff;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 1rem;
+            }
+
+            .mw-nav-links {
+                display: flex;
+                align-items: center;
+                gap: 1.25rem;
+                flex-wrap: wrap;
+            }
+
+                .mw-nav-links a {
+                    text-decoration: none;
+                    color: var(--forsa-text);
+                    font-weight: 500;
+                    font-size: 0.95rem;
+                    padding: 0.35rem 0.25rem;
+                    border-bottom: 2px solid transparent;
+                    transition: color 0.2s ease, border-color 0.2s ease;
+                }
+
+                    .mw-nav-links a:hover {
+                        color: var(--forsa-burgundy);
+                        border-bottom-color: var(--forsa-burgundy);
+                    }
+
+            .mw-nav-actions {
+                display: flex;
+                align-items: center;
+                gap: 0.65rem;
+                flex-wrap: wrap;
+            }
+
+            .mw-user-name {
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: var(--forsa-burgundy-dark);
+                background-color: var(--forsa-burgundy-soft);
+                padding: 0.35rem 0.75rem;
+                border-radius: 999px;
+                border: 1px solid var(--forsa-burgundy-border);
+            }
+
+            .mw-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.35rem;
+                padding: 0.45rem 0.95rem;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 0.9rem;
+                text-decoration: none;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+
+            .mw-btn-primary {
+                background-color: var(--forsa-burgundy);
+                color: #ffffff;
+                border: 1px solid var(--forsa-burgundy);
+            }
+
+                .mw-btn-primary:hover {
+                    background-color: var(--forsa-burgundy-dark);
+                    border-color: var(--forsa-burgundy-dark);
+                    color: #ffffff;
+                }
+
+            .mw-btn-outline {
+                background-color: transparent;
+                color: var(--forsa-burgundy);
+                border: 1px solid var(--forsa-burgundy-border);
+            }
+
+                .mw-btn-outline:hover {
+                    background-color: var(--forsa-burgundy-soft);
+                    border-color: var(--forsa-burgundy);
+                    color: var(--forsa-burgundy-dark);
+                }
+
+            .dropdown-item:active,
+            .dropdown-item:hover {
+                background-color: var(--forsa-burgundy-soft);
+                color: var(--forsa-burgundy-dark);
+            }
+
+            .mw-main {
+                min-height: 70vh;
+                padding: 1.5rem 0;
+            }
+
+            .mw-alert {
+                max-width: 1280px;
+                margin: 0 auto 1.25rem auto;
+                padding: 0.85rem 1.1rem;
+                border-radius: 8px;
+                font-weight: 500;
+            }
+
+            .mw-alert-success {
+                background-color: #eef8f2;
+                color: #166534;
+                border: 1px solid #bbf7d0;
+            }
+
+            .mw-alert-error {
+                background-color: var(--forsa-burgundy-soft);
+                color: var(--forsa-burgundy-dark);
+                border: 1px solid var(--forsa-burgundy-border);
+            }
+
+            .mw-footer {
+                background-color: #2b0b13;
+                color: #f3e8eb;
+                margin-top: 3rem;
+                padding-top: 2.5rem;
+            }
+
+            .mw-container {
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 0 1.5rem;
+            }
+
+            .mw-footer-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 2rem;
+                padding-bottom: 2rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+            }
+
+            .mw-brand-footer {
+                color: #ffffff;
+                margin-bottom: 0.75rem;
+            }
+
+                .mw-brand-footer:hover {
+                    color: #ffffff;
+                }
+
+            .mw-footer p {
+                color: #dfc8ce;
+                font-size: 0.9rem;
+                margin: 0;
+            }
+
+            .mw-footer strong {
+                display: block;
+                color: #ffffff;
+                margin-bottom: 0.75rem;
+                font-size: 0.95rem;
+            }
+
+            .mw-footer a {
+                display: block;
+                color: #dfc8ce;
+                text-decoration: none;
+                font-size: 0.9rem;
+                margin-bottom: 0.45rem;
+                transition: color 0.2s ease;
+            }
+
+                .mw-footer a:hover {
+                    color: #ffffff;
+                }
+
+            .mw-footer-bottom {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+                padding: 1.1rem 1.5rem;
+                font-size: 0.85rem;
+                color: #d0b5bc;
+            }
+    </style>
+
 </head>
 
 <body>
 
-<header class="mw-navbar">
+    <header class="mw-navbar">
 
-    <div class="mw-nav-inner">
+        <div class="mw-nav-inner">
 
-        @* =========================
+            @* =========================
            BRAND
            ========================= *@
 
-        <a class="mw-brand"
-           asp-controller="Home"
-           asp-action="Index">
-
-            <span class="mw-brand-mark">
-                M
-            </span>
-
-            <span>
-                Mawjood Internship
-            </span>
-
-        </a>
-
-
-        @* =========================
-           NAVIGATION LINKS
-           ========================= *@
-
-        <nav class="mw-nav-links">
-
-            <a asp-controller="Home"
+            <a class="mw-brand"
+               asp-controller="Home"
                asp-action="Index">
-                Home
-            </a>
-
-            <a asp-controller="Internship"
-               asp-action="Index">
-                Browse Internships
-            </a>
-
-
-            @* Student *@
-
-            @if (User.Identity?.IsAuthenticated == true &&
-                 User.IsInRole("User"))
-            {
-                <a asp-controller="Student"
-                   asp-action="Profile">
-                    My Profile
-                </a>
-
-                <a asp-controller="CV"
-                   asp-action="Index">
-                    My CV
-                </a>
-            }
-
-
-            @* Admin *@
-
-            @if (User.Identity?.IsAuthenticated == true &&
-                 User.IsInRole("Admin"))
-            {
-                <a asp-controller="Student"
-                   asp-action="Index">
-                    Students
-                </a>
-
-                <a asp-controller="Company"
-                   asp-action="Index">
-                    Companies
-                </a>
-
-                <a asp-controller="Skill"
-                   asp-action="Index">
-                    Skills
-                </a>
-
-                <a asp-controller="Application"
-                   asp-action="Index">
-                    Applications
-                </a>
-            }
-
-        </nav>
-
-
-        @* =========================
-           RIGHT SIDE
-           ========================= *@
-
-        <div class="mw-nav-actions">
-
-            @if (User.Identity?.IsAuthenticated == true)
-            {
-
-                @* =========================
-                   NOTIFICATIONS - STUDENT
-                   ========================= *@
-
-                @if (User.IsInRole("User"))
-                {
-                    <div class="dropdown">
-
-                        <button class="mw-btn mw-btn-outline dropdown-toggle"
-                                type="button"
-                                id="notificationDropdown"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false">
-
-                            <span class="material-symbols-outlined">
-                                notifications
-                            </span>
-
-                            Notifications
-
-                        </button>
-
-                        <ul class="dropdown-menu dropdown-menu-end"
-                            aria-labelledby="notificationDropdown">
-
-                            <li>
-                                <a class="dropdown-item"
-                                   asp-controller="Notification"
-                                   asp-action="Index">
-
-                                    <span class="material-symbols-outlined me-2"
-                                          style="vertical-align: middle;">
-                                        notifications
-                                    </span>
-
-                                    View Notifications
-
-                                </a>
-                            </li>
-
-                        </ul>
-
-                    </div>
-                }
-
-
-                @* =========================
-                   USER NAME
-                   ========================= *@
-
-                <span class="mw-user-name">
-                    @User.Identity.Name
-                </span>
-
-
-                @* =========================
-                   LOGOUT
-                   ========================= *@
-
-                <form asp-controller="Account"
-                      asp-action="Logout"
-                      method="post"
-                      class="d-inline">
-
-                    @Html.AntiForgeryToken()
-
-                    <button type="submit"
-                            class="mw-btn mw-btn-outline">
-
-                        Logout
-
-                    </button>
-
-                </form>
-
-            }
-            else
-            {
-
-                @* =========================
-                   GUEST
-                   ========================= *@
-
-                <a class="mw-btn mw-btn-outline"
-                   asp-controller="Account"
-                   asp-action="Login">
-
-                    Login
-
-                </a>
-
-                <a class="mw-btn mw-btn-primary"
-                   asp-controller="Account"
-                   asp-action="Register">
-
-                    Get Started
-
-                </a>
-
-            }
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<main class="mw-main">
-
-    @* =========================
-       SUCCESS MESSAGE
-       ========================= *@
-
-    @if (TempData["Success"] != null)
-    {
-        <div class="mw-alert mw-alert-success">
-            @TempData["Success"]
-        </div>
-    }
-
-
-    @* =========================
-       ERROR MESSAGE
-       ========================= *@
-
-    @if (TempData["Error"] != null)
-    {
-        <div class="mw-alert mw-alert-error">
-            @TempData["Error"]
-        </div>
-    }
-
-
-    @RenderBody()
-
-</main>
-
-
-@* =========================
-   FOOTER
-   ========================= *@
-
-<footer class="mw-footer">
-
-    <div class="mw-container mw-footer-grid">
-
-        @* Brand *@
-
-        <div>
-
-            <div class="mw-brand mw-brand-footer">
 
                 <span class="mw-brand-mark">
-                    M
+                    F
                 </span>
 
                 <span>
-                    Mawjood Internship
+                    Forsa
                 </span>
 
-            </div>
-
-            <p>
-                Connecting students with internship opportunities.
-            </p>
-
-        </div>
-
-
-        @* Explore *@
-
-        <div>
-
-            <strong>
-                Explore
-            </strong>
-
-            <a asp-controller="Home"
-               asp-action="Index">
-                Home
             </a>
 
-            <a asp-controller="Internship"
-               asp-action="Index">
-                Browse Internships
-            </a>
 
-        </div>
+            @* =========================
+           NAVIGATION LINKS
+           ========================= *@
+
+            <nav class="mw-nav-links">
+
+                <a asp-controller="Home"
+                   asp-action="Index">
+                    Home
+                </a>
+
+                <a asp-controller="Internship"
+                   asp-action="Index">
+                    Browse Internships
+                </a>
 
 
-        @* Account *@
+                @* Student *@
 
-        <div>
-
-            <strong>
-                Account
-            </strong>
-
-            @if (User.Identity?.IsAuthenticated == true)
-            {
-                @if (User.IsInRole("User"))
+                @if (User.Identity?.IsAuthenticated == true &&
+                     User.IsInRole("User"))
                 {
                     <a asp-controller="Student"
                        asp-action="Profile">
@@ -345,67 +333,320 @@
                        asp-action="Index">
                         My CV
                     </a>
-
-                    <a asp-controller="Notification"
-                       asp-action="Index">
-                        Notifications
-                    </a>
                 }
-                else if (User.IsInRole("Admin"))
-                {
-                    <a asp-controller="Application"
-                       asp-action="Index">
-                        Applications
-                    </a>
 
+
+                @* Admin *@
+
+                @if (User.Identity?.IsAuthenticated == true &&
+                     User.IsInRole("Admin"))
+                {
                     <a asp-controller="Student"
                        asp-action="Index">
                         Students
                     </a>
-                }
-            }
-            else
-            {
-                <a asp-controller="Account"
-                   asp-action="Login">
-                    Login
-                </a>
 
-                <a asp-controller="Account"
-                   asp-action="Register">
-                    Register
-                </a>
-            }
+                    <a asp-controller="Company"
+                       asp-action="Index">
+                        Companies
+                    </a>
+
+                    <a asp-controller="Skill"
+                       asp-action="Index">
+                        Skills
+                    </a>
+
+                    <a asp-controller="Application"
+                       asp-action="Index">
+                        Applications
+                    </a>
+                }
+
+            </nav>
+
+
+            @* =========================
+           RIGHT SIDE
+           ========================= *@
+
+            <div class="mw-nav-actions">
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+
+                    @* =========================
+                   NOTIFICATIONS - STUDENT
+                   ========================= *@
+
+                    @if (User.IsInRole("User"))
+                    {
+                        <div class="dropdown">
+
+                            <button class="mw-btn mw-btn-outline dropdown-toggle"
+                                    type="button"
+                                    id="notificationDropdown"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+
+                                <span class="material-symbols-outlined">
+                                    notifications
+                                </span>
+
+                                Notifications
+
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-menu-end"
+                                aria-labelledby="notificationDropdown">
+
+                                <li>
+                                    <a class="dropdown-item"
+                                       asp-controller="Notification"
+                                       asp-action="Index">
+
+                                        <span class="material-symbols-outlined me-2"
+                                              style="vertical-align: middle;">
+                                            notifications
+                                        </span>
+
+                                        View Notifications
+
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    }
+
+
+                    @* =========================
+                   USER NAME
+                   ========================= *@
+
+                    <span class="mw-user-name">
+                        @User.Identity.Name
+                    </span>
+
+
+                    @* =========================
+                   LOGOUT
+                   ========================= *@
+
+                    <form asp-controller="Account"
+                          asp-action="Logout"
+                          method="post"
+                          class="d-inline">
+
+                        @Html.AntiForgeryToken()
+
+                        <button type="submit"
+                                class="mw-btn mw-btn-outline">
+
+                            Logout
+
+                        </button>
+
+                    </form>
+
+                }
+                else
+                {
+
+                    @* =========================
+                   GUEST
+                   ========================= *@
+
+                    <a class="mw-btn mw-btn-outline"
+                       asp-controller="Account"
+                       asp-action="Login">
+
+                        Login
+
+                    </a>
+
+                    <a class="mw-btn mw-btn-primary"
+                       asp-controller="Account"
+                       asp-action="Register">
+
+                        Get Started
+
+                    </a>
+
+                }
+
+            </div>
 
         </div>
 
-    </div>
+    </header>
 
 
-    <div class="mw-container mw-footer-bottom">
+    <main class="mw-main">
 
-        <span>
-            © 2026 Mawjood Internship. All rights reserved.
-        </span>
+        @* =========================
+       SUCCESS MESSAGE
+       ========================= *@
 
-        <span>
-            ASP.NET Core MVC
-        </span>
+        @if (TempData["Success"] != null)
+        {
+            <div class="mw-alert mw-alert-success">
+                @TempData["Success"]
+            </div>
+        }
 
-    </div>
 
-</footer>
+        @* =========================
+       ERROR MESSAGE
+       ========================= *@
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="mw-alert mw-alert-error">
+                @TempData["Error"]
+            </div>
+        }
 
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+        @RenderBody()
 
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    </main>
 
-<script src="~/js/site.js"
-        asp-append-version="true">
-</script>
 
-@await RenderSectionAsync("Scripts", required: false)
+    @* =========================
+   FOOTER
+   ========================= *@
+
+    <footer class="mw-footer">
+
+        <div class="mw-container mw-footer-grid">
+
+            @* Brand *@
+
+            <div>
+
+                <div class="mw-brand mw-brand-footer">
+
+                    <span class="mw-brand-mark">
+                        F
+                    </span>
+
+                    <span>
+                        Forsa
+                    </span>
+
+                </div>
+
+                <p>
+                    Connecting students with internship opportunities.
+                </p>
+
+            </div>
+
+
+            @* Explore *@
+
+            <div>
+
+                <strong>
+                    Explore
+                </strong>
+
+                <a asp-controller="Home"
+                   asp-action="Index">
+                    Home
+                </a>
+
+                <a asp-controller="Internship"
+                   asp-action="Index">
+                    Browse Internships
+                </a>
+
+            </div>
+
+
+            @* Account *@
+
+            <div>
+
+                <strong>
+                    Account
+                </strong>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    @if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="Student"
+                           asp-action="Profile">
+                            My Profile
+                        </a>
+
+                        <a asp-controller="CV"
+                           asp-action="Index">
+                            My CV
+                        </a>
+
+                        <a asp-controller="Notification"
+                           asp-action="Index">
+                            Notifications
+                        </a>
+                    }
+                    else if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Application"
+                           asp-action="Index">
+                            Applications
+                        </a>
+
+                        <a asp-controller="Student"
+                           asp-action="Index">
+                            Students
+                        </a>
+                    }
+                }
+                else
+                {
+                    <a asp-controller="Account"
+                       asp-action="Login">
+                        Login
+                    </a>
+
+                    <a asp-controller="Account"
+                       asp-action="Register">
+                        Register
+                    </a>
+                }
+
+            </div>
+
+        </div>
+
+
+        <div class="mw-container mw-footer-bottom">
+
+            <span>
+                © 2026 Forsa. All rights reserved.
+            </span>
+
+            <span>
+                ASP.NET Core MVC
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/site.js"
+            asp-append-version="true">
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 

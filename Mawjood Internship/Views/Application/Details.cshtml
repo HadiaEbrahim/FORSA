@@ -1,123 +1,88 @@
-﻿@* @using BLogicLayer.ViewModels
-@model ApplicationViewModel
+﻿@model BLogicLayer.ViewModels.ApplicationViewModel
 
 @{
     ViewData["Title"] = "Application Details";
+
+    var statusClass = Model.Status?.ToLower() switch
+    {
+        "accepted" or "approved" => "mw-status mw-status-accepted",
+        "rejected" => "mw-status mw-status-rejected",
+        "pending" => "mw-status mw-status-pending",
+        _ => "mw-status mw-status-default"
+    };
 }
 
-<div class="card shadow">
+<section class="mw-section">
+    <div class="mw-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
 
-    <div class="card-header bg-dark text-white">
+                <div class="mw-card mw-card-pad">
 
-        <h3>
-            Application Details
-        </h3>
+                    <div class="pb-3 mb-4 d-flex align-items-center justify-content-between flex-wrap gap-2"
+                         style="border-bottom: 1px solid var(--forsa-border);">
+                        <div>
+                            <span class="mw-eyebrow">APPLICATION SUMMARY</span>
+                            <h2 class="mb-0 fw-bold" style="color: var(--forsa-text);">
+                                Application Details
+                            </h2>
+                        </div>
 
+                        <span class="@statusClass">
+                            @Model.Status
+                        </span>
+                    </div>
+
+                    <div class="mw-info-grid mb-4">
+                        <div class="mw-info-item">
+                            <div class="mw-info-label">Student</div>
+                            <div class="mw-info-value">@Model.StudentName</div>
+                        </div>
+
+                        <div class="mw-info-item">
+                            <div class="mw-info-label">Internship</div>
+                            <div class="mw-info-value">@Model.InternshipTitle</div>
+                        </div>
+
+                        <div class="mw-info-item">
+                            <div class="mw-info-label">Date</div>
+                            <div class="mw-info-value">@Model.Date.ToShortDateString()</div>
+                        </div>
+
+                        <div class="mw-info-item">
+                            <div class="mw-info-label">Status</div>
+                            <div class="mw-info-value">@Model.Status</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 flex-wrap pt-2">
+                        <a asp-action="Index"
+                           class="mw-btn mw-btn-outline">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+                            Back
+                        </a>
+
+                        @if (User.IsInRole("Admin") && Model.Status != "Rejected")
+                        {
+                            <form asp-action="Reject"
+                                  asp-route-id="@Model.Id"
+                                  method="post"
+                                  style="display:inline">
+                                @Html.AntiForgeryToken()
+
+                                <button type="submit"
+                                        class="mw-btn mw-btn-primary"
+                                        style="background: var(--forsa-burgundy-dark);">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+                                    Reject
+                                </button>
+                            </form>
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
     </div>
-
-    <div class="card-body">
-
-        <dl class="row">
-
-            <dt class="col-sm-3">
-                Student
-            </dt>
-
-            <dd class="col-sm-9">
-                @Model.StudentName
-            </dd>
-
-            <dt class="col-sm-3">
-                Internship
-            </dt>
-
-            <dd class="col-sm-9">
-                @Model.InternshipTitle
-            </dd>
-
-            <dt class="col-sm-3">
-                Date
-            </dt>
-
-            <dd class="col-sm-9">
-                @Model.Date.ToShortDateString()
-            </dd>
-
-            <dt class="col-sm-3">
-                Status
-            </dt>
-
-            <dd class="col-sm-9">
-                @Model.Status
-            </dd>
-
-        </dl>
-
-        <a asp-action="Index"
-           class="btn btn-secondary">
-            Back
-        </a>
-
-        @if (User.IsInRole("Admin") &&
-             Model.Status != "Rejected")
-        {
-            <form asp-action="Reject"
-                  asp-route-id="@Model.Id"
-                  method="post"
-                  style="display:inline">
-
-                @Html.AntiForgeryToken()
-
-                <button type="submit"
-                        class="btn btn-danger">
-                    Reject
-                </button>
-
-            </form>
-        }
-
-    </div>
-
-</div> *@
-
-
-@model BLogicLayer.ViewModels.ApplicationViewModel
-
-@{
-    ViewData["Title"] = "Application Details";
-}
-
-<div class="container mt-4">
-
-    <h2>Application Details</h2>
-
-    <div class="card p-4">
-
-        <p>
-            <strong>Student:</strong>
-            @Model.StudentName
-        </p>
-
-        <p>
-            <strong>Internship:</strong>
-            @Model.InternshipTitle
-        </p>
-
-        <p>
-            <strong>Date:</strong>
-            @Model.Date.ToShortDateString()
-        </p>
-
-        <p>
-            <strong>Status:</strong>
-            @Model.Status
-        </p>
-
-    </div>
-
-    <a asp-action="Index"
-       class="btn btn-secondary mt-3">
-        Back
-    </a>
-
-</div>
+</section>
