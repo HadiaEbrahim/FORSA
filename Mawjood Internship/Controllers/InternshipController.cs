@@ -75,6 +75,40 @@ namespace Mawjood_Internship77.Controllers
                             await _applicationService.HasApplied(
                                 student.Id,
                                 internship.Id);
+
+                        if (internship.HasApplied)
+                        {
+                            var allApplications =
+                                await _applicationService.GetAll();
+
+                            var studentApplication =
+                                allApplications
+                                    .Where(a =>
+                                        a.StudentId == student.Id &&
+                                        a.InternshipId == internship.Id)
+                                    .OrderByDescending(a => a.Date)
+                                    .ThenByDescending(a => a.Id)
+                                    .FirstOrDefault();
+
+                            if (studentApplication != null &&
+                                !string.IsNullOrWhiteSpace(studentApplication.Status))
+                            {
+                                var normalizedStatus = studentApplication.Status.Trim();
+
+                                if (normalizedStatus.Equals("Accepted", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    internship.ApplicationStatus = "Accepted";
+                                }
+                                else if (normalizedStatus.Equals("Rejected", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    internship.ApplicationStatus = "Rejected";
+                                }
+                                else
+                                {
+                                    internship.ApplicationStatus = normalizedStatus;
+                                }
+                            }
+                        }
                     }
                 }
             }

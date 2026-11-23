@@ -1,0 +1,224 @@
+﻿@model BLogicLayer.ViewModels.SkillRoadmapViewModel
+@using System.Linq
+
+@{
+    ViewData["Title"] = $"{Model.SkillName} - Roadmap";
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<section class="mw-section">
+    <div class="mw-container">
+
+        <a asp-controller="Skill"
+           asp-action="Index"
+           class="mw-link d-inline-flex align-items-center gap-1 mb-3">
+            <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+            Back to Skills
+        </a>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="mw-alert mw-alert-error mb-3" style="width: 100%; margin-top: 0;">
+                @TempData["Error"]
+            </div>
+        }
+
+        <div class="mw-card mw-card-pad mb-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
+                <div>
+                    <span class="mw-eyebrow">LEARNING ROADMAP</span>
+                    <h1 class="mt-1 mb-1 fw-bold" style="color: var(--forsa-text);">
+                        @Model.SkillName
+                    </h1>
+                    <p class="mw-muted mb-0">
+                        Structured steps and resources to master @Model.SkillName.
+                    </p>
+                </div>
+
+                <div class="text-md-end">
+                    <div class="fw-bold fs-4" style="color: var(--forsa-burgundy);">
+                        @Model.ProgressPercentage%
+                    </div>
+                    <div class="small mw-muted">
+                        @Model.CompletedSteps of @Model.TotalSteps steps completed
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress mt-3" style="height: 10px; border-radius: 999px;">
+                <div class="progress-bar"
+                     role="progressbar"
+                     style="width: @Model.ProgressPercentage%; background-color: var(--forsa-burgundy);"
+                     aria-valuenow="@Model.ProgressPercentage"
+                     aria-valuemin="0"
+                     aria-valuemax="100">
+                </div>
+            </div>
+        </div>
+
+        @if (isAdmin)
+        {
+            <div class="mw-card mw-card-pad mb-4">
+                <span class="mw-eyebrow">ADMIN CONTROLS</span>
+                <h3 class="mt-1 mb-3 fw-bold" style="color: var(--forsa-text);">
+                    Add Roadmap Step
+                </h3>
+
+                <form asp-controller="Skill"
+                      asp-action="AddRoadmapStep"
+                      method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="SkillId" value="@Model.SkillId" />
+
+                    <div class="row g-3">
+                        <div class="col-md-2">
+                            <label class="form-label fw-semibold">Order</label>
+                            <input type="number"
+                                   name="StepOrder"
+                                   value="@(Model.Steps.Count + 1)"
+                                   min="1"
+                                   class="form-control mw-input"
+                                   required />
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="form-label fw-semibold">Step Title</label>
+                            <input type="text"
+                                   name="Title"
+                                   class="form-control mw-input"
+                                   placeholder="e.g. Variables, Data Types & Control Flow"
+                                   required />
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="form-label fw-semibold">Resource URL (Optional)</label>
+                            <input type="url"
+                                   name="ResourceUrl"
+                                   class="form-control mw-input"
+                                   placeholder="https://learn.microsoft.com/..." />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Description (Optional)</label>
+                            <textarea name="Description"
+                                      rows="2"
+                                      class="form-control mw-input"
+                                      placeholder="Brief summary of what to practice or build in this step..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button type="submit" class="mw-btn mw-btn-primary">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+                            Add Step
+                        </button>
+                    </div>
+                </form>
+            </div>
+        }
+
+        <div class="mw-card mw-card-pad">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="mb-0 fw-bold" style="color: var(--forsa-text);">
+                    Roadmap Steps
+                </h3>
+                <span class="mw-chip">@Model.TotalSteps Steps</span>
+            </div>
+
+            @if (Model.Steps == null || !Model.Steps.Any())
+            {
+                <div class="mw-empty">
+                    <span class="material-symbols-outlined" style="font-size: 42px;">route</span>
+                    <h4 class="mt-3">No roadmap steps yet</h4>
+                    <p class="mb-0">
+                        @if (isAdmin)
+                        {
+                            <span>Use the form above to add the first learning step for @Model.SkillName.</span>
+                        }
+                        else
+                        {
+                            <span>Roadmap steps for @Model.SkillName haven't been published yet.</span>
+                        }
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="d-flex flex-column gap-3">
+                    @foreach (var step in Model.Steps.OrderBy(s => s.StepOrder).ThenBy(s => s.Id))
+                    {
+                        <div class="mw-card mw-card-pad"
+                             style="@(step.IsCompleted ? "border-color: var(--forsa-green, #198754);" : "")">
+                            <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+                                        <span class="mw-chip">Step @step.StepOrder</span>
+                                        <h5 class="mb-0 fw-bold" style="color: var(--forsa-text);">
+                                            @step.Title
+                                        </h5>
+                                        @if (step.IsCompleted)
+                                        {
+                                            <span class="mw-chip-green">Completed</span>
+                                        }
+                                    </div>
+
+                                    @if (!string.IsNullOrWhiteSpace(step.Description))
+                                    {
+                                        <p class="mw-muted mb-2">@step.Description</p>
+                                    }
+
+                                    @if (!string.IsNullOrWhiteSpace(step.ResourceUrl))
+                                    {
+                                        <a href="@step.ResourceUrl"
+                                           target="_blank"
+                                           rel="noopener noreferrer"
+                                           class="mw-link d-inline-flex align-items-center gap-1 small">
+                                            <span class="material-symbols-outlined" style="font-size: 16px;">open_in_new</span>
+                                            Learning Resource
+                                        </a>
+                                    }
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2 flex-wrap">
+                                    <form asp-controller="Skill"
+                                          asp-action="ToggleStepCompletion"
+                                          method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="stepId" value="@step.Id" />
+                                        <input type="hidden" name="skillId" value="@Model.SkillId" />
+
+                                        <button type="submit"
+                                                class="mw-btn @(step.IsCompleted ? "mw-btn-outline" : "mw-btn-primary")">
+                                            <span class="material-symbols-outlined" style="font-size: 18px;">
+                                                @(step.IsCompleted ? "check_circle" : "radio_button_unchecked")
+                                            </span>
+                                            @(step.IsCompleted ? "Completed" : "Mark Completed")
+                                        </button>
+                                    </form>
+
+                                    @if (isAdmin)
+                                    {
+                                        <form asp-controller="Skill"
+                                              asp-action="DeleteRoadmapStep"
+                                              method="post">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="stepId" value="@step.Id" />
+                                            <input type="hidden" name="skillId" value="@Model.SkillId" />
+
+                                            <button type="submit"
+                                                    class="mw-btn mw-btn-outline"
+                                                    title="Delete Step">
+                                                <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+    </div>
+</section>

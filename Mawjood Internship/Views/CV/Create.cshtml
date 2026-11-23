@@ -4,117 +4,114 @@
     ViewData["Title"] = "My CV";
 }
 
-<div class="container py-5">
+<section class="mw-section">
+    <div class="mw-container">
 
-    <div class="mb-4">
-        <h1 class="fw-bold">My CV</h1>
-        <p class="text-muted">
-            Upload your CV or add an external CV link.
-        </p>
-    </div>
-
-    @if (TempData["Success"] != null)
-    {
-        <div class="alert alert-success">
-            @TempData["Success"]
+        <div class="mb-4">
+            <span class="mw-chip-green">
+                <span class="material-symbols-outlined" style="font-size: 16px;">badge</span>
+                STUDENT PORTFOLIO & RESUME
+            </span>
+            <h1 class="fw-bold mt-2 mb-1" style="color: var(--forsa-text);">My CV</h1>
+            <p class="mw-muted mb-0">
+                Upload your CV, add an external CV link, or fill in your education and internal CV details.
+            </p>
         </div>
-    }
 
-    @if (TempData["Error"] != null)
-    {
-        <div class="alert alert-danger">
-            @TempData["Error"]
+        @if (TempData["Success"] != null)
+        {
+            <div class="mw-alert mw-alert-success mb-4" style="width: 100%; margin-top: 0;">
+                @TempData["Success"]
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="mw-alert mw-alert-error mb-4" style="width: 100%; margin-top: 0;">
+                @TempData["Error"]
+            </div>
+        }
+
+        <div asp-validation-summary="ModelOnly"
+             class="mw-alert mw-alert-error mb-4"
+             style="width: 100%; margin-top: 0;">
         </div>
-    }
 
-    <div asp-validation-summary="ModelOnly"
-         class="alert alert-danger">
-    </div>
+        <!-- ========================================= -->
+        <!-- EXISTING UPLOADED CV -->
+        <!-- ========================================= -->
+        @if (!string.IsNullOrWhiteSpace(Model.CVFilePath))
+        {
+            <div class="mw-card mw-card-pad mb-4">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                    <div>
+                        <span class="mw-chip-green mb-2">
+                            <span class="material-symbols-outlined" style="font-size: 16px;">check_circle</span>
+                            PDF Uploaded
+                        </span>
+                        <h5 class="fw-bold mb-1" style="color: var(--forsa-text);">
+                            Uploaded CV
+                        </h5>
+                        <p class="mw-muted mb-0">
+                            Your uploaded PDF is already available.
+                        </p>
+                    </div>
 
+                    <div class="d-flex gap-2 flex-wrap">
+                        <a href="@Model.CVFilePath"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="mw-btn mw-btn-primary">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">visibility</span>
+                            View CV
+                        </a>
 
-    <!-- ========================================= -->
-    <!-- EXISTING UPLOADED CV -->
-    <!-- ========================================= -->
-    @if (!string.IsNullOrWhiteSpace(Model.CVFilePath))
-    {
-        <div class="card shadow-sm mb-4">
-            <div class="card-body">
-
-                <h5 class="fw-bold">
-                    <i class="bi bi-file-earmark-pdf"></i>
-                    Uploaded CV
-                </h5>
-
-                <p class="text-muted">
-                    Your uploaded PDF is already available.
-                </p>
-
-                <div class="d-flex gap-2">
-
-                    <a href="@Model.CVFilePath"
-                       target="_blank"
-                       class="btn btn-primary">
-
-                        <i class="bi bi-eye"></i>
-                        View CV
-
-                    </a>
-
-                    <a href="@Model.CVFilePath"
-                       download
-                       class="btn btn-outline-secondary">
-
-                        <i class="bi bi-download"></i>
-                        Download CV
-
-                    </a>
-
+                        <a href="@Model.CVFilePath"
+                           download
+                           class="mw-btn mw-btn-outline">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                            Download CV
+                        </a>
+                    </div>
                 </div>
-
             </div>
-        </div>
-    }
+        }
 
+        <!-- ========================================= -->
+        <!-- EXISTING EXTERNAL CV -->
+        <!-- ========================================= -->
+        @if (!string.IsNullOrWhiteSpace(Model.ExternalCVLink))
+        {
+            <div class="mw-card mw-card-pad mb-4">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                    <div>
+                        <span class="mw-chip mb-2">
+                            <span class="material-symbols-outlined" style="font-size: 16px;">link</span>
+                            External Link Saved
+                        </span>
+                        <h5 class="fw-bold mb-1" style="color: var(--forsa-text);">
+                            External CV
+                        </h5>
+                        <p class="mw-muted mb-0">
+                            Your external CV link is already saved.
+                        </p>
+                    </div>
 
-    <!-- ========================================= -->
-    <!-- EXISTING EXTERNAL CV -->
-    <!-- ========================================= -->
-    @if (!string.IsNullOrWhiteSpace(Model.ExternalCVLink))
-    {
-        <div class="card shadow-sm mb-4">
-            <div class="card-body">
-
-                <h5 class="fw-bold">
-                    <i class="bi bi-link-45deg"></i>
-                    External CV
-                </h5>
-
-                <p class="text-muted">
-                    Your external CV link is already saved.
-                </p>
-
-                <a href="@Model.ExternalCVLink"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="btn btn-outline-primary">
-
-                    <i class="bi bi-box-arrow-up-right"></i>
-                    Open External CV
-
-                </a>
-
+                    <a href="@Model.ExternalCVLink"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="mw-btn mw-btn-success-soft">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">open_in_new</span>
+                        Open External CV
+                    </a>
+                </div>
             </div>
-        </div>
-    }
+        }
 
-
-    <!-- ========================================= -->
-    <!-- CV FORM -->
-    <!-- ========================================= -->
-
-    <div class="card shadow-sm">
-
-        <div class="card-body p-4">
+        <!-- ========================================= -->
+        <!-- CV FORM -->
+        <!-- ========================================= -->
+        <div class="mw-card mw-form" style="border-top: 3px solid var(--forsa-burgundy);">
 
             <form asp-action="SaveCV"
                   asp-controller="CV"
@@ -126,230 +123,200 @@
                 <!-- ================================= -->
                 <!-- PERSONAL INFORMATION -->
                 <!-- ================================= -->
-
-                <h4 class="fw-bold mb-3">
+                <h4 class="fw-bold pb-2 mb-3" style="color: var(--forsa-burgundy-dark); border-bottom: 1px solid var(--forsa-border);">
                     Personal Information
                 </h4>
 
                 <div class="row">
-
                     <div class="col-md-6 mb-3">
-
-                        <label asp-for="FName"
-                               class="form-label">
+                        <label asp-for="FName" class="form-label fw-semibold">
                             First Name
                         </label>
-
                         <input asp-for="FName"
-                               class="form-control"
+                               class="form-control mw-input"
                                readonly />
-
                     </div>
 
                     <div class="col-md-6 mb-3">
-
-                        <label asp-for="LName"
-                               class="form-label">
+                        <label asp-for="LName" class="form-label fw-semibold">
                             Last Name
                         </label>
-
                         <input asp-for="LName"
-                               class="form-control"
+                               class="form-control mw-input"
                                readonly />
-
                     </div>
-
                 </div>
 
                 <div class="mb-4">
-
-                    <label asp-for="Email"
-                           class="form-label">
+                    <label asp-for="Email" class="form-label fw-semibold">
                         Email
                     </label>
-
                     <input asp-for="Email"
-                           class="form-control"
+                           class="form-control mw-input"
                            readonly />
-
                 </div>
 
+                <!-- ================================= -->
+                <!-- EDUCATION INFORMATION -->
+                <!-- ================================= -->
+                <h4 class="fw-bold pb-2 mb-3 mt-4" style="color: var(--forsa-burgundy-dark); border-bottom: 1px solid var(--forsa-border);">
+                    Education Information
+                </h4>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="University" class="form-label fw-semibold">
+                            University
+                        </label>
+                        <input asp-for="University"
+                               class="form-control mw-input"
+                               placeholder="e.g. Damietta University" />
+                        <span asp-validation-for="University" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Major" class="form-label fw-semibold">
+                            Major
+                        </label>
+                        <input asp-for="Major"
+                               class="form-control mw-input"
+                               placeholder="e.g. Information Technology" />
+                        <span asp-validation-for="Major" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 mb-3">
+                        <label asp-for="Education" class="form-label fw-semibold">
+                            Education
+                        </label>
+                        <input asp-for="Education"
+                               class="form-control mw-input"
+                               placeholder="e.g. Faculty of Computers and Artificial Intelligence" />
+                        <span asp-validation-for="Education" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <label asp-for="AcademicYear" class="form-label fw-semibold">
+                            Academic Year
+                        </label>
+                        <input asp-for="AcademicYear"
+                               type="number"
+                               min="1"
+                               max="10"
+                               class="form-control mw-input"
+                               placeholder="e.g. 3" />
+                        <span asp-validation-for="AcademicYear" class="text-danger small"></span>
+                    </div>
+                </div>
 
                 <!-- ================================= -->
                 <!-- UPLOAD PDF -->
                 <!-- ================================= -->
-
-                <h4 class="fw-bold mb-3">
+                <h4 class="fw-bold pb-2 mb-3 mt-4" style="color: var(--forsa-burgundy-dark); border-bottom: 1px solid var(--forsa-border);">
                     Upload CV
                 </h4>
 
                 <div class="mb-4">
-
-                    <label asp-for="CVFile"
-                           class="form-label">
+                    <label asp-for="CVFile" class="form-label fw-semibold">
                         CV PDF File
                     </label>
-
                     <input asp-for="CVFile"
                            type="file"
-                           class="form-control"
+                           class="form-control mw-input"
                            accept=".pdf,application/pdf" />
-
-                    <div class="form-text">
-                        Only PDF files are allowed.
-                        Maximum size: 5 MB.
+                    <div class="form-text mw-muted">
+                        Only PDF files are allowed. Maximum size: 5 MB.
                     </div>
-
-                    <span asp-validation-for="CVFile"
-                          class="text-danger">
-                    </span>
-
+                    <span asp-validation-for="CVFile" class="text-danger small"></span>
                 </div>
-
 
                 <!-- ================================= -->
                 <!-- EXTERNAL LINK -->
                 <!-- ================================= -->
-
-                <h4 class="fw-bold mb-3">
+                <h4 class="fw-bold pb-2 mb-3 mt-4" style="color: var(--forsa-burgundy-dark); border-bottom: 1px solid var(--forsa-border);">
                     External CV
                 </h4>
 
                 <div class="mb-4">
-
-                    <label asp-for="ExternalCVLink"
-                           class="form-label">
+                    <label asp-for="ExternalCVLink" class="form-label fw-semibold">
                         External CV Link
                     </label>
-
                     <input asp-for="ExternalCVLink"
                            type="url"
-                           class="form-control"
+                           class="form-control mw-input"
                            placeholder="https://drive.google.com/..." />
-
-                    <div class="form-text">
-                        You can add a Google Drive,
-                        OneDrive, Dropbox or other CV link.
+                    <div class="form-text mw-muted">
+                        You can add a Google Drive, OneDrive, Dropbox or other CV link.
                     </div>
-
-                    <span asp-validation-for="ExternalCVLink"
-                          class="text-danger">
-                    </span>
-
+                    <span asp-validation-for="ExternalCVLink" class="text-danger small"></span>
                 </div>
-
 
                 <!-- ================================= -->
                 <!-- INTERNAL CV -->
                 <!-- ================================= -->
-
-                <hr class="my-4" />
-
-                <h4 class="fw-bold mb-3">
+                <h4 class="fw-bold pb-2 mb-3 mt-4" style="color: var(--forsa-burgundy-dark); border-bottom: 1px solid var(--forsa-border);">
                     Internal CV Information
                 </h4>
 
                 <div class="mb-3">
-
-                    <label asp-for="AboutMe"
-                           class="form-label">
+                    <label asp-for="AboutMe" class="form-label fw-semibold">
                         About Me
                     </label>
-
                     <textarea asp-for="AboutMe"
-                              class="form-control"
+                              class="form-control mw-input"
                               rows="4"
-                              placeholder="Tell companies about yourself...">
-                    </textarea>
-
-                    <span asp-validation-for="AboutMe"
-                          class="text-danger">
-                    </span>
-
+                              placeholder="Tell companies about yourself..."></textarea>
+                    <span asp-validation-for="AboutMe" class="text-danger small"></span>
                 </div>
 
-
                 <div class="mb-3">
-
-                    <label asp-for="Skills"
-                           class="form-label">
+                    <label asp-for="Skills" class="form-label fw-semibold">
                         Skills
                     </label>
-
                     <textarea asp-for="Skills"
-                              class="form-control"
+                              class="form-control mw-input"
                               rows="4"
-                              placeholder="C#, Python, SQL, Cybersecurity...">
-                    </textarea>
-
-                    <span asp-validation-for="Skills"
-                          class="text-danger">
-                    </span>
-
+                              placeholder="C#, Python, SQL, Cybersecurity..."></textarea>
+                    <span asp-validation-for="Skills" class="text-danger small"></span>
                 </div>
-
 
                 <div class="mb-3">
-
-                    <label asp-for="Courses"
-                           class="form-label">
+                    <label asp-for="Courses" class="form-label fw-semibold">
                         Courses
                     </label>
-
                     <textarea asp-for="Courses"
-                              class="form-control"
+                              class="form-control mw-input"
                               rows="4"
-                              placeholder="Courses and certificates...">
-                    </textarea>
-
-                    <span asp-validation-for="Courses"
-                          class="text-danger">
-                    </span>
-
+                              placeholder="Courses and certificates..."></textarea>
+                    <span asp-validation-for="Courses" class="text-danger small"></span>
                 </div>
-
 
                 <div class="mb-4">
-
-                    <label asp-for="Experience"
-                           class="form-label">
+                    <label asp-for="Experience" class="form-label fw-semibold">
                         Experience
                     </label>
-
                     <textarea asp-for="Experience"
-                              class="form-control"
+                              class="form-control mw-input"
                               rows="4"
-                              placeholder="Internships, projects, experience...">
-                    </textarea>
-
-                    <span asp-validation-for="Experience"
-                          class="text-danger">
-                    </span>
-
+                              placeholder="Internships, projects, experience..."></textarea>
+                    <span asp-validation-for="Experience" class="text-danger small"></span>
                 </div>
-
 
                 <!-- ================================= -->
                 <!-- BUTTONS -->
                 <!-- ================================= -->
-
-                <div class="d-flex gap-2">
-
+                <div class="d-flex gap-2 flex-wrap pt-2">
                     <button type="submit"
-                            class="btn btn-primary">
-
-                        <i class="bi bi-save"></i>
+                            class="mw-btn mw-btn-primary">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">save</span>
                         Save CV
-
                     </button>
 
                     <a asp-action="Index"
-                       class="btn btn-outline-secondary">
-
+                       class="mw-btn mw-btn-outline">
                         Cancel
-
                     </a>
-
                 </div>
 
             </form>
@@ -357,15 +324,11 @@
         </div>
 
     </div>
-
-</div>
-
+</section>
 
 @section Scripts
 {
     @{
-        await Html.RenderPartialAsync(
-            "_ValidationScriptsPartial"
-        );
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

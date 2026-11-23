@@ -8,7 +8,7 @@
         <div class="mw-admin-hero">
             <div class="mw-chip" style="background:rgba(255,255,255,.16);color:#fff;">Admin Portal</div>
             <h1>Admin Dashboard</h1>
-            <p class="mb-0" style="opacity:.9;">Manage the platform using the existing Mawjood administration modules.</p>
+            <p class="mb-0" style="opacity:.9;">Manage the platform using the Forsa administration modules.</p>
         </div>
 
         <div class="mw-admin-grid">
@@ -41,11 +41,15 @@ else
         <div class="mw-container">
             <div class="mw-chip mb-3">Internship opportunities for students</div>
             <h1>Find Your <span>Internship Opportunity</span></h1>
-            <p>Discover internship opportunities and take the next step toward your professional career with Mawjood.</p>
+            <p>Discover internship opportunities and take the next step toward your professional career with Forsa.</p>
 
             <div class="mw-actions-row" style="margin-top:24px;padding-top:0;">
                 <a class="mw-btn mw-btn-primary" asp-controller="Internship" asp-action="Index">Browse Internships</a>
-                @if (User.Identity?.IsAuthenticated != true)
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a class="mw-btn mw-btn-outline" asp-controller="Skill" asp-action="Index">Explore Skill Roadmaps</a>
+                }
+                else
                 {
                     <a class="mw-btn mw-btn-outline" asp-controller="Account" asp-action="Register">Create Account</a>
                 }
@@ -57,7 +61,7 @@ else
         <div class="mw-container">
             <div class="mw-section-head">
                 <div>
-                    <h2>How Mawjood Works</h2>
+                    <h2>How Forsa Works</h2>
                     <p>A simple path from profile to opportunity.</p>
                 </div>
             </div>
@@ -78,6 +82,11 @@ else
                     <h3>3. Manage Your CV</h3>
                     <p>Upload your PDF CV or save an external CV/portfolio link.</p>
                 </div>
+                <a class="mw-card mw-feature" asp-controller="Skill" asp-action="Index" style="text-decoration:none;color:inherit;">
+                    <div class="mw-feature-icon"><span class="material-symbols-outlined">route</span></div>
+                    <h3>4. Skill Roadmaps</h3>
+                    <p>Follow structured learning roadmaps and track your progress on key skills.</p>
+                </a>
             </div>
         </div>
     </section>

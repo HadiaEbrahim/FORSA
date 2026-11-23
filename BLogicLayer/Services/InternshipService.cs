@@ -3,22 +3,20 @@ using BLogicLayer.ViewModels;
 using DataAccessLayer.Data;
 using DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
+
 namespace BLogicLayer.Services
 {
     public class InternshipService : IInternshipService
     {
         private readonly ApplicationDbContext _context;
-        public InternshipService(
-            ApplicationDbContext context)
+
+        public InternshipService(ApplicationDbContext context)
         {
             _context = context;
         }
 
-
         // GET ALL
-
-        public async Task<List<InternshipViewModel>>
-            GetAll()
+        public async Task<List<InternshipViewModel>> GetAll()
         {
             return await _context.Internships
                 .AsNoTracking()
@@ -26,26 +24,17 @@ namespace BLogicLayer.Services
                 .Select(x => new InternshipViewModel
                 {
                     Id = x.Id,
-
                     Title = x.Title,
-
-                    Location =
-                        x.Location,
-
-                    CompanyId =
-                        x.CompanyId,
-
-                    CompanyName =
-                        x.Company.Name
+                    Location = x.Location,
+                    RequiredSkills = x.RequiredSkills,
+                    CompanyId = x.CompanyId,
+                    CompanyName = x.Company.Name
                 })
                 .ToListAsync();
         }
 
-
         // GET BY ID
-
-        public async Task<InternshipViewModel>
-            GetById(int id)
+        public async Task<InternshipViewModel> GetById(int id)
         {
             return await _context.Internships
                 .AsNoTracking()
@@ -54,91 +43,55 @@ namespace BLogicLayer.Services
                 .Select(x => new InternshipViewModel
                 {
                     Id = x.Id,
-
                     Title = x.Title,
-
-                    Location =
-                        x.Location,
-
-                    CompanyId =
-                        x.CompanyId,
-
-                    CompanyName =
-                        x.Company.Name
+                    Location = x.Location,
+                    RequiredSkills = x.RequiredSkills,
+                    CompanyId = x.CompanyId,
+                    CompanyName = x.Company.Name
                 })
                 .FirstOrDefaultAsync();
         }
 
-
         // ADD
-
-        public async Task Add(
-            InternshipViewModel model)
+        public async Task Add(InternshipViewModel model)
         {
             var internship = new Internship
             {
-                Title =
-                    model.Title,
-
-                Location =
-                    model.Location,
-
-                CompanyId =
-                    model.CompanyId
+                Title = model.Title,
+                Location = model.Location,
+                RequiredSkills = model.RequiredSkills?.Trim(),
+                CompanyId = model.CompanyId
             };
 
-
-            _context.Internships.Add(
-                internship);
-
+            _context.Internships.Add(internship);
             await _context.SaveChangesAsync();
         }
 
-
         // UPDATE
-
-        public async Task Update(
-            InternshipViewModel model)
+        public async Task Update(InternshipViewModel model)
         {
-            var internship =
-                await _context.Internships
-                    .FindAsync(model.Id);
-
+            var internship = await _context.Internships.FindAsync(model.Id);
 
             if (internship == null)
                 return;
 
-
-            internship.Title =
-                model.Title;
-
-            internship.Location =
-                model.Location;
-
-            internship.CompanyId =
-                model.CompanyId;
-
+            internship.Title = model.Title;
+            internship.Location = model.Location;
+            internship.RequiredSkills = model.RequiredSkills?.Trim();
+            internship.CompanyId = model.CompanyId;
 
             await _context.SaveChangesAsync();
         }
 
-
         // DELETE
-
         public async Task<bool> Delete(int id)
         {
-            var internship =
-                await _context.Internships
-                    .FindAsync(id);
-
+            var internship = await _context.Internships.FindAsync(id);
 
             if (internship == null)
                 return false;
 
-
-            _context.Internships.Remove(
-                internship);
-
+            _context.Internships.Remove(internship);
             await _context.SaveChangesAsync();
 
             return true;

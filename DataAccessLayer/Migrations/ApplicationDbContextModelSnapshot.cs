@@ -204,6 +204,10 @@ namespace DataAccessLayer.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("RequiredSkills")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -281,6 +285,40 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Skills");
                 });
 
+            modelBuilder.Entity("DataAccessLayer.Models.SkillRoadmapStep", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("ResourceUrl")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<int>("SkillId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StepOrder")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SkillId");
+
+                    b.ToTable("SkillRoadmapSteps");
+                });
+
             modelBuilder.Entity("DataAccessLayer.Models.Student", b =>
                 {
                     b.Property<int>("Id")
@@ -348,6 +386,36 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Models.StudentRoadmapProgress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SkillRoadmapStepId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SkillRoadmapStepId");
+
+                    b.HasIndex("StudentId", "SkillRoadmapStepId")
+                        .IsUnique();
+
+                    b.ToTable("StudentRoadmapProgresses");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Models.StudentSkill", b =>
@@ -558,6 +626,36 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("DataAccessLayer.Models.SkillRoadmapStep", b =>
+                {
+                    b.HasOne("DataAccessLayer.Models.Skill", "Skill")
+                        .WithMany("RoadmapSteps")
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Skill");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Models.StudentRoadmapProgress", b =>
+                {
+                    b.HasOne("DataAccessLayer.Models.SkillRoadmapStep", "SkillRoadmapStep")
+                        .WithMany("StudentProgresses")
+                        .HasForeignKey("SkillRoadmapStepId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccessLayer.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("SkillRoadmapStep");
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("DataAccessLayer.Models.StudentSkill", b =>
                 {
                     b.HasOne("DataAccessLayer.Models.Skill", "Skill")
@@ -644,7 +742,14 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Navigation("InternshipSkills");
 
+                    b.Navigation("RoadmapSteps");
+
                     b.Navigation("StudentSkills");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Models.SkillRoadmapStep", b =>
+                {
+                    b.Navigation("StudentProgresses");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Models.Student", b =>

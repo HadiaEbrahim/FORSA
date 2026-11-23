@@ -185,7 +185,7 @@ namespace Mawjood_Internship.Controllers
         }
 
         // =========================================
-        // SAVE CV FILE + EXTERNAL LINK
+        // SAVE CV (FILE + EXTERNAL LINK + INTERNAL CV)
         // =========================================
 
         [HttpPost]
@@ -313,6 +313,29 @@ namespace Mawjood_Internship.Controllers
 
             if (!ModelState.IsValid)
             {
+                return View(
+                    "Create",
+                    model
+                );
+            }
+
+            // =====================================
+            // Save Internal CV Information
+            // =====================================
+
+            var internalSuccess =
+                await _studentService.SaveInternalCV(
+                    student.Id,
+                    model
+                );
+
+            if (!internalSuccess)
+            {
+                ModelState.AddModelError(
+                    "",
+                    "Could not save the internal CV information."
+                );
+
                 return View(
                     "Create",
                     model

@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 namespace BLogicLayer.ViewModels
 {
     public class InternshipViewModel
     {
         public int Id { get; set; }
+
         [Required]
         [StringLength(150)]
         public string Title { get; set; }
@@ -16,6 +18,11 @@ namespace BLogicLayer.ViewModels
         public int CompanyId { get; set; }
 
         public string CompanyName { get; set; }
+
+        [Display(Name = "Required Skills")]
+        [StringLength(500)]
+        public string? RequiredSkills { get; set; }
+
         public bool HasApplied { get; set; }
         public string? ApplicationStatus { get; set; }
     }

@@ -19,7 +19,7 @@
             </h2>
 
             <p>
-                Explore the internship opportunities currently available in Mawjood.
+                Explore the internship opportunities currently available in Forsa.
             </p>
         </div>
 
@@ -71,10 +71,18 @@
 
             @foreach (var internship in Model)
             {
+                var skillsList = string.IsNullOrWhiteSpace(internship.RequiredSkills)
+                    ? new List<string>()
+                    : internship.RequiredSkills
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(s => s.Trim())
+                        .Where(s => !string.IsNullOrEmpty(s))
+                        .ToList();
+
                 <article class="mw-card mw-internship-card">
 
                     <!-- Location -->
-                    <span class="mw-chip">
+                    <span class="mw-chip-green">
                         @internship.Location
                     </span>
 
@@ -89,6 +97,27 @@
                     <div class="mw-muted">
                         @internship.CompanyName
                     </div>
+
+
+                    <!-- Required Skills -->
+                    @if (skillsList.Any())
+                    {
+                        <div class="d-flex flex-wrap gap-1 mt-3">
+                            @foreach (var skill in skillsList.Take(3))
+                            {
+                                <span class="mw-chip" style="font-size: 0.78rem; padding: 0.25rem 0.65rem;">
+                                    @skill
+                                </span>
+                            }
+
+                            @if (skillsList.Count > 3)
+                            {
+                                <span class="mw-chip" style="font-size: 0.78rem; padding: 0.25rem 0.65rem;">
+                                    +@(skillsList.Count - 3) more
+                                </span>
+                            }
+                        </div>
+                    }
 
 
                     <!-- Actions -->

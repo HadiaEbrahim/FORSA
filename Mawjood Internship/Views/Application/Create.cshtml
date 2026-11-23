@@ -5,96 +5,97 @@
     ViewData["Title"] = "Create Application";
 }
 
-<div class="row justify-content-center">
+<section class="mw-section">
+    <div class="mw-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
 
-    <div class="col-md-6">
+                <div class="mw-card mw-form">
 
-        <div class="card shadow p-4">
+                    <span class="mw-eyebrow">NEW APPLICATION</span>
+                    <h2 class="mb-4 fw-bold" style="color: var(--forsa-text);">
+                        Apply for Internship
+                    </h2>
 
-            <h2 class="mb-4">
-                Apply for Internship
-            </h2>
+                    <form asp-action="Create"
+                          method="post">
 
-            <form asp-action="Create"
-                  method="post">
+                        @Html.AntiForgeryToken()
 
-                @Html.AntiForgeryToken()
+                        <div asp-validation-summary="All"
+                             class="mw-alert mw-alert-error mb-3"
+                             style="width: 100%; margin-top: 0;">
+                        </div>
 
-                <div asp-validation-summary="All"
-                     class="text-danger">
+                        <div class="mb-3">
+                            <label asp-for="StudentId"
+                                   class="form-label fw-semibold">
+                                Student ID
+                            </label>
+
+                            <input asp-for="StudentId"
+                                   type="number"
+                                   class="form-control" />
+
+                            <span asp-validation-for="StudentId"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="InternshipId"
+                                   class="form-label fw-semibold">
+                                Internship ID
+                            </label>
+
+                            <input asp-for="InternshipId"
+                                   type="number"
+                                   class="form-control" />
+
+                            <span asp-validation-for="InternshipId"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Date"
+                                   class="form-label fw-semibold">
+                            </label>
+
+                            <input asp-for="Date"
+                                   type="date"
+                                   class="form-control" />
+
+                            <span asp-validation-for="Date"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                        <input type="hidden"
+                               asp-for="Status"
+                               value="Pending" />
+
+                        <div class="d-flex gap-2 flex-wrap pt-2">
+                            <button type="submit"
+                                    class="mw-btn mw-btn-primary">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">send</span>
+                                Submit Application
+                            </button>
+
+                            <a asp-action="Index"
+                               class="mw-btn mw-btn-outline">
+                                Cancel
+                            </a>
+                        </div>
+
+                    </form>
+
                 </div>
 
-                <div class="mb-3">
-
-                    <label asp-for="StudentId"
-                           class="form-label">
-                        Student ID
-                    </label>
-
-                    <input asp-for="StudentId"
-                           type="number"
-                           class="form-control" />
-
-                    <span asp-validation-for="StudentId"
-                          class="text-danger">
-                    </span>
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label asp-for="InternshipId"
-                           class="form-label">
-                        Internship ID
-                    </label>
-
-                    <input asp-for="InternshipId"
-                           type="number"
-                           class="form-control" />
-
-                    <span asp-validation-for="InternshipId"
-                          class="text-danger">
-                    </span>
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label asp-for="Date"
-                           class="form-label">
-                    </label>
-
-                    <input asp-for="Date"
-                           type="date"
-                           class="form-control" />
-
-                    <span asp-validation-for="Date"
-                          class="text-danger">
-                    </span>
-
-                </div>
-
-                <input type="hidden"
-                       asp-for="Status"
-                       value="Pending" />
-
-                <button type="submit"
-                        class="btn btn-success">
-                    Submit Application
-                </button>
-
-                <a asp-action="Index"
-                   class="btn btn-secondary">
-                    Cancel
-                </a>
-
-            </form>
-
+            </div>
         </div>
-
     </div>
-
-</div>
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

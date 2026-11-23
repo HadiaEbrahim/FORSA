@@ -2,12 +2,20 @@
 
 @{
     ViewData["Title"] = "Internship Details";
+    var skillsList = string.IsNullOrWhiteSpace(Model.RequiredSkills)
+        ? new List<string>()
+        : Model.RequiredSkills
+            .Split(',', StringSplitOptions.RemoveEmptyEntries)
+            .Select(s => s.Trim())
+            .Where(s => !string.IsNullOrEmpty(s))
+            .ToList();
 }
 
 <div class="mw-container mw-section">
 
-    <a class="mw-muted" asp-action="Index">
-        ← Back to internships
+    <a class="mw-link d-inline-flex align-items-center gap-1" asp-action="Index">
+        <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+        Back to internships
     </a>
 
     <div class="mw-card mw-detail mt-3">
@@ -40,10 +48,29 @@
                     </div>
                 </div>
 
-                <div class="mw-info-item">
+                <div class="mw-info-item" style="grid-column: 1 / -1;">
                     <div class="mw-info-label">Company</div>
                     <div class="mw-info-value">
                         @Model.CompanyName
+                    </div>
+                </div>
+
+                <div class="mw-info-item" style="grid-column: 1 / -1;">
+                    <div class="mw-info-label">Required Skills</div>
+                    <div class="mw-info-value mt-1">
+                        @if (skillsList.Any())
+                        {
+                            <div class="d-flex flex-wrap gap-2">
+                                @foreach (var skill in skillsList)
+                                {
+                                    <span class="mw-chip">@skill</span>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <span class="mw-muted">No specific skills listed.</span>
+                        }
                     </div>
                 </div>
 
@@ -61,12 +88,14 @@
                 <a class="mw-btn mw-btn-primary"
                    asp-action="Edit"
                    asp-route-id="@Model.Id">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
                     Edit Internship
                 </a>
 
                 <a class="mw-btn mw-btn-outline"
                    asp-action="Delete"
                    asp-route-id="@Model.Id">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
                     Delete
                 </a>
 
@@ -82,9 +111,10 @@
             <div class="mw-detail-section">
 
                 <div class="mw-card mw-card-pad"
-                     style="background:#f5f8ff;border-color:#dbe6ff;">
+                     style="background:var(--forsa-surface-soft);border-color:var(--forsa-border);">
 
-                    <strong>Interested in this opportunity?</strong>
+                    <span class="mw-eyebrow">OPPORTUNITY APPLICATION</span>
+                    <strong class="d-block fs-6" style="color:var(--forsa-text);">Interested in this opportunity?</strong>
 
                     <p class="mw-muted mb-3 mt-1">
                         Apply now and your profile will be matched automatically
@@ -93,38 +123,39 @@
 
                     @if (Model.HasApplied)
                     {
-                        <button type="button"
-                                class="mw-btn mw-btn-outline"
-                                disabled>
-
-                            @if (Model.ApplicationStatus == "Accepted")
-                            {
-                                <span class="material-symbols-outlined">
+                        @if (Model.ApplicationStatus == "Accepted")
+                        {
+                            <span class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-3 fw-semibold"
+                                  style="background-color: #dcfce7; color: #15803d; border: 1px solid #86efac;">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">
                                     check_circle
                                 </span>
-
                                 <span>Accepted</span>
-                            }
-                            else if (Model.ApplicationStatus == "Rejected")
-                            {
-                                <span class="material-symbols-outlined">
+                            </span>
+                        }
+                        else if (Model.ApplicationStatus == "Rejected")
+                        {
+                            <span class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-3 fw-semibold"
+                                  style="background-color: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5;">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">
                                     cancel
                                 </span>
-
                                 <span>Rejected</span>
-                            }
-                            else
-                            {
-                                <span class="material-symbols-outlined">
+                            </span>
+                        }
+                        else
+                        {
+                            <button type="button"
+                                    class="mw-btn mw-btn-outline"
+                                    disabled>
+                                <span class="material-symbols-outlined" style="font-size: 18px;">
                                     schedule
                                 </span>
-
                                 <span>
                                     Applied / Pending
                                 </span>
-                            }
-
-                        </button>
+                            </button>
+                        }
                     }
                     else
                     {
@@ -141,7 +172,7 @@
                             <button type="submit"
                                     class="mw-btn mw-btn-primary">
 
-                                <span class="material-symbols-outlined">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">
                                     send
                                 </span>
 
@@ -166,9 +197,10 @@
             <div class="mw-detail-section">
 
                 <div class="mw-card mw-card-pad"
-                     style="background:#f5f8ff;border-color:#dbe6ff;">
+                     style="background:var(--forsa-surface-soft);border-color:var(--forsa-border);">
 
-                    <strong>Interested in this opportunity?</strong>
+                    <span class="mw-eyebrow">GET STARTED</span>
+                    <strong class="d-block fs-6" style="color:var(--forsa-text);">Interested in this opportunity?</strong>
 
                     <p class="mw-muted mb-3 mt-1">
                         Login as a student to apply for this internship.

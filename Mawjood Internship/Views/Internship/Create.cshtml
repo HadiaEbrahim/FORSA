@@ -4,125 +4,150 @@
     ViewData["Title"] = "Create Internship";
 }
 
-<div class="container mw-container py-4">
+<section class="mw-section">
+    <div class="container mw-container">
 
-    <div class="mw-card mw-form">
+        <div class="mw-card mw-form">
 
-        <div class="mb-4">
-            <span class="mw-eyebrow">INTERNSHIP MANAGEMENT</span>
+            <div class="mb-4">
+                <span class="mw-eyebrow">INTERNSHIP MANAGEMENT</span>
 
-            <h1 class="mb-2">
-                Add Internship
-            </h1>
+                <h1 class="mb-2 fw-bold" style="color: var(--forsa-text);">
+                    Add Internship
+                </h1>
 
-            <p class="mw-muted mb-0">
-                Create a new internship opportunity.
-            </p>
-        </div>
-
-        <form asp-controller="Internship"
-              asp-action="Create"
-              method="post">
-
-            @Html.AntiForgeryToken()
-
-            <div asp-validation-summary="All"
-                 class="alert alert-danger"
-                 role="alert">
+                <p class="mw-muted mb-0">
+                    Create a new internship opportunity.
+                </p>
             </div>
 
-            <div class="row g-3">
+            <form asp-controller="Internship"
+                  asp-action="Create"
+                  method="post">
 
-                <!-- Title -->
-                <div class="col-12">
+                @Html.AntiForgeryToken()
 
-                    <label asp-for="Title"
-                           class="form-label">
-                        Internship Title
-                    </label>
-
-                    <input asp-for="Title"
-                           class="form-control mw-input"
-                           placeholder="e.g. Software Development Intern" />
-
-                    <span asp-validation-for="Title"
-                          class="text-danger small">
-                    </span>
-
+                <div asp-validation-summary="All"
+                     class="mw-alert mw-alert-error mb-3"
+                     style="width: 100%; margin-top: 0;"
+                     role="alert">
                 </div>
 
-                <!-- Location -->
-                <div class="col-md-6">
+                <div class="row g-3">
 
-                    <label asp-for="Location"
-                           class="form-label">
-                        Location
-                    </label>
+                    <!-- Title -->
+                    <div class="col-12">
 
-                    <input asp-for="Location"
-                           class="form-control mw-input"
-                           placeholder="e.g. Cairo" />
+                        <label asp-for="Title"
+                               class="form-label fw-semibold">
+                            Internship Title
+                        </label>
 
-                    <span asp-validation-for="Location"
-                          class="text-danger small">
-                    </span>
+                        <input asp-for="Title"
+                               class="form-control mw-input"
+                               placeholder="e.g. Software Development Intern" />
 
-                </div>
+                        <span asp-validation-for="Title"
+                              class="text-danger small">
+                        </span>
 
-                <!-- Company ID -->
-                <div class="col-md-6">
+                    </div>
 
-                    <label asp-for="CompanyId"
-                           class="form-label">
-                        Company ID
-                    </label>
+                    <!-- Location -->
+                    <div class="col-md-6">
 
-                    <input asp-for="CompanyId"
-                           type="number"
-                           min="1"
-                           class="form-control mw-input"
-                           placeholder="Enter existing company ID" />
+                        <label asp-for="Location"
+                               class="form-label fw-semibold">
+                            Location
+                        </label>
 
-                    <span asp-validation-for="CompanyId"
-                          class="text-danger small">
-                    </span>
+                        <input asp-for="Location"
+                               class="form-control mw-input"
+                               placeholder="e.g. Cairo" />
 
-                    <div class="form-text">
-                        Use the ID of a company that already exists.
+                        <span asp-validation-for="Location"
+                              class="text-danger small">
+                        </span>
+
+                    </div>
+
+                    <!-- Company ID -->
+                    <div class="col-md-6">
+
+                        <label asp-for="CompanyId"
+                               class="form-label fw-semibold">
+                            Company ID
+                        </label>
+
+                        <input asp-for="CompanyId"
+                               type="number"
+                               min="1"
+                               class="form-control mw-input"
+                               placeholder="Enter existing company ID" />
+
+                        <span asp-validation-for="CompanyId"
+                              class="text-danger small">
+                        </span>
+
+                        <div class="form-text mw-muted">
+                            Use the ID of a company that already exists.
+                        </div>
+
+                    </div>
+
+                    <!-- Required Skills -->
+                    <div class="col-12">
+
+                        <label asp-for="RequiredSkills"
+                               class="form-label fw-semibold">
+                            Required Skills
+                        </label>
+
+                        <input asp-for="RequiredSkills"
+                               class="form-control mw-input"
+                               placeholder="e.g. C#, ASP.NET Core, SQL Server, Git" />
+
+                        <span asp-validation-for="RequiredSkills"
+                              class="text-danger small">
+                        </span>
+
+                        <div class="form-text mw-muted">
+                            Separate multiple skills with commas.
+                        </div>
+
                     </div>
 
                 </div>
 
-            </div>
+                <div class="mw-actions-row mt-4">
 
-            <div class="mw-actions-row mt-4">
+                    <button type="submit"
+                            class="mw-btn mw-btn-primary">
 
-                <button type="submit"
-                        class="btn mw-btn mw-btn-primary">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">
+                            add
+                        </span>
 
-                    <span class="material-symbols-outlined">
-                        add
-                    </span>
+                        Create Internship
 
-                    Create Internship
+                    </button>
 
-                </button>
+                    <a asp-controller="Internship"
+                       asp-action="Index"
+                       class="mw-btn mw-btn-outline">
 
-                <a asp-controller="Internship"
-                   asp-action="Index"
-                   class="btn mw-btn mw-btn-outline">
+                        Cancel
 
-                    Cancel
+                    </a>
 
-                </a>
+                </div>
 
-            </div>
+            </form>
 
-        </form>
+        </div>
 
     </div>
-
-</div>
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
